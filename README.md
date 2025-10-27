@@ -22,9 +22,18 @@ yarn add @spextion/components
 pnpm add @spextion/components
 ```
 
-### Peer Dependencies
+### For React / Next.js
 
-For React Native / Expo projects, you'll also need:
+Import the CSS file in your app:
+
+```tsx
+// In your _app.tsx (Next.js) or main App component (React)
+import '@spextion/components/styles.css';
+```
+
+### For React Native / Expo
+
+Install peer dependencies:
 
 ```bash
 npm install react-native-reanimated @expo/vector-icons
@@ -32,10 +41,25 @@ npm install react-native-reanimated @expo/vector-icons
 
 ## Usage
 
-### Basic Button
+### React / Next.js
 
 ```tsx
 import { ThreeDButton } from '@spextion/components';
+import '@spextion/components/styles.css';
+
+function App() {
+  return (
+    <ThreeDButton variant="default" onClick={() => console.log('Clicked!')}>
+      Click Me
+    </ThreeDButton>
+  );
+}
+```
+
+### React Native / Expo
+
+```tsx
+import { ThreeDButton } from '@spextion/components/native';
 
 function App() {
   return (

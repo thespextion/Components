@@ -1,0 +1,230 @@
+/* Base Button Styles */
+.threed-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.threed-button:active:not(.threed-button--disabled) {
+  transform: scale(0.95);
+}
+
+.threed-button--pressed {
+  transform: scale(0.95);
+}
+
+.threed-button__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.threed-button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Spinner */
+.threed-button__spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Sizes */
+.threed-button--xs {
+  height: 32px;
+  padding: 0 16px;
+  font-size: 12px;
+  border-radius: 6px;
+}
+
+.threed-button--sm {
+  height: 36px;
+  padding: 0 12px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.threed-button--default {
+  height: 40px;
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.threed-button--lg {
+  height: 44px;
+  padding: 0 32px;
+  font-size: 16px;
+  border-radius: 12px;
+}
+
+.threed-button--icon {
+  height: 40px;
+  width: 40px;
+  padding: 0;
+}
+
+/* Stretch */
+.threed-button--stretch {
+  width: 100%;
+}
+
+/* Variants */
+
+/* AI Variant */
+.threed-button--ai {
+  background-color: #6366f1;
+  color: #ffffff;
+  border: 1px solid #4f46e5;
+  border-bottom-width: 4px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.threed-button--ai:hover:not(.threed-button--disabled) {
+  background-color: #5558e3;
+}
+
+/* Default Variant */
+.threed-button--default {
+  background-color: #3b82f6;
+  color: #ffffff;
+  border: 1px solid #2563eb;
+  border-bottom-width: 4px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.threed-button--default:hover:not(.threed-button--disabled) {
+  background-color: #2563eb;
+}
+
+/* Destructive Variant */
+.threed-button--destructive {
+  background-color: #ef4444;
+  color: #ffffff;
+  border: 1px solid #dc2626;
+  border-bottom-width: 4px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.threed-button--destructive:hover:not(.threed-button--disabled) {
+  background-color: #dc2626;
+}
+
+/* Outline Variant */
+.threed-button--outline {
+  background-color: #ffffff;
+  color: #18181b;
+  border: 1px solid #d4d4d8;
+  border-bottom: 4px solid #e4e4e7;
+}
+
+.threed-button--outline:hover:not(.threed-button--disabled) {
+  background-color: #f4f4f5;
+}
+
+/* Outline Destructive Variant */
+.threed-button--outline_destructive {
+  background-color: #ffffff;
+  color: #ef4444;
+  border: 1px solid #dc2626;
+  border-bottom: 4px solid #ef4444;
+}
+
+.threed-button--outline_destructive:hover:not(.threed-button--disabled) {
+  background-color: #fef2f2;
+}
+
+/* Secondary Variant */
+.threed-button--secondary {
+  background-color: #f4f4f5;
+  color: #18181b;
+  border: none;
+}
+
+.threed-button--secondary:hover:not(.threed-button--disabled) {
+  background-color: #e4e4e7;
+}
+
+/* Ghost Variant */
+.threed-button--ghost {
+  background-color: transparent;
+  color: #18181b;
+  border: none;
+}
+
+.threed-button--ghost:hover:not(.threed-button--disabled) {
+  background-color: #f4f4f5;
+}
+
+/* Ghost Destructive Variant */
+.threed-button--ghost_destructive {
+  background-color: transparent;
+  color: #ef4444;
+  border: none;
+}
+
+.threed-button--ghost_destructive:hover:not(.threed-button--disabled) {
+  background-color: #fef2f2;
+}
+
+/* Link Variant */
+.threed-button--link {
+  background-color: transparent;
+  color: #3b82f6;
+  border: none;
+  text-decoration: underline;
+}
+
+.threed-button--link:hover:not(.threed-button--disabled) {
+  color: #2563eb;
+}
+
+/* Solid Variant */
+.threed-button--solid {
+  background-color: #27272a;
+  color: #ffffff;
+  border: none;
+}
+
+.threed-button--solid:hover:not(.threed-button--disabled) {
+  background-color: #18181b;
+}
+
+/* Button Group */
+.threed-button-group {
+  display: flex;
+  flex-direction: row;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #d4d4d8;
+}
+
+.threed-button-group > .threed-button {
+  flex: 1;
+  border-radius: 0;
+  border: none;
+}
+
+.threed-button-group > .threed-button:not(:first-child) {
+  border-left: 1px solid #d4d4d8;
+}
