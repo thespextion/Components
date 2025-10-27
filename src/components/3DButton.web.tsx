@@ -1,56 +1,59 @@
-import React, { useState } from "react";
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { clsx } from "clsx";
 
-// Define variant types
-type ThreeDButtonVariant =
-  | "ai"
-  | "default"
-  | "destructive"
-  | "outline"
-  | "outline_destructive"
-  | "secondary"
-  | "ghost"
-  | "ghost_destructive"
-  | "link"
-  | "solid";
-
-type ThreeDButtonSize = "default" | "sm" | "lg" | "xs" | "icon";
-
-interface ThreeDButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: ThreeDButtonVariant;
-  size?: ThreeDButtonSize;
-  children?: React.ReactNode;
-  stretch?: boolean;
-  isLoading?: boolean;
-  asChild?: boolean;
+// Utility function to merge class names
+function cn(
+  ...inputs: (string | undefined | null | false | Record<string, boolean>)[]
+): string {
+  return clsx(inputs);
 }
 
-// Variant styles using Tailwind classes
-const variantClasses: Record<ThreeDButtonVariant, string> = {
-  ai: "bg-indigo-500 text-white border border-indigo-600 border-b-4 shadow-md hover:bg-indigo-600",
-  default:
-    "bg-blue-500 text-white border border-blue-600 border-b-4 shadow-md hover:bg-blue-600",
-  destructive:
-    "bg-red-500 text-white border border-red-600 border-b-4 shadow-md hover:bg-red-600",
-  outline:
-    "bg-white text-zinc-900 border border-zinc-300 border-b-4 border-b-zinc-200 hover:bg-zinc-50",
-  outline_destructive:
-    "bg-white text-red-500 border border-red-600 border-b-4 border-b-red-500 hover:bg-red-50",
-  secondary: "bg-zinc-100 text-zinc-900 hover:bg-zinc-200",
-  ghost: "bg-transparent text-zinc-900 hover:bg-zinc-100",
-  ghost_destructive: "bg-transparent text-red-500 hover:bg-red-50",
-  link: "bg-transparent text-blue-500 underline hover:text-blue-600",
-  solid: "bg-zinc-800 text-white hover:bg-zinc-900",
-};
+const buttonVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-semibold transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 gap-2 border active:scale-95",
+  {
+    variants: {
+      variant: {
+        ai: "bg-indigo-500 text-white hover:bg-indigo-600 border-indigo-700 border-b-4 border-b-indigo-600 shadow-md",
+        default:
+          "bg-blue-500 text-white hover:bg-blue-600 border-blue-700 border-b-4 border-b-blue-600 shadow-md",
+        destructive:
+          "bg-red-500 text-white hover:bg-red-600 border-red-700 border-b-4 border-red-600 shadow-md",
+        outline:
+          "border bg-white hover:bg-neutral-100 border-neutral-300 border-b-4 border-b-neutral-200 text-neutral-900",
+        outline_destructive:
+          "border text-red-500 bg-white hover:bg-red-50 border-red-600 border-b-4 border-b-red-500",
+        secondary:
+          "bg-neutral-100 text-neutral-900 hover:bg-neutral-200 border-transparent",
+        ghost:
+          "bg-transparent text-neutral-900 hover:bg-neutral-100 border-transparent",
+        ghost_destructive:
+          "bg-transparent text-red-500 hover:bg-red-50 border-transparent",
+        link: "text-blue-500 underline-offset-4 hover:underline border-transparent",
+        solid: "bg-zinc-800 text-white hover:bg-zinc-700 border-transparent",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-lg px-3",
+        lg: "h-11 rounded-xl px-8",
+        xs: "h-8 rounded-md px-4 text-xs",
+        icon: "h-10 w-10 p-0",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
 
-// Size styles using Tailwind classes
-const sizeClasses: Record<ThreeDButtonSize, string> = {
-  xs: "h-8 px-4 text-xs rounded-md",
-  sm: "h-9 px-3 text-sm rounded-lg",
-  default: "h-10 px-4 py-2 text-sm rounded-xl",
-  lg: "h-11 px-8 text-base rounded-xl",
-  icon: "h-10 w-10 p-0",
-};
+export interface ThreeDButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+  isLoading?: boolean;
+  stretch?: boolean;
+}
 
 export const ThreeDButton = React.forwardRef<
   HTMLButtonElement,
@@ -58,52 +61,47 @@ export const ThreeDButton = React.forwardRef<
 >(
   (
     {
-      variant = "default",
-      size = "default",
+      className,
+      variant,
+      size,
       children,
       stretch = false,
       isLoading = false,
       disabled = false,
-      className = "",
       type = "button",
       ...props
     },
     ref
   ) => {
-    const [isPressed, setIsPressed] = useState(false);
-
-    const buttonClasses = [
-      "inline-flex items-center justify-center font-semibold transition-all duration-150 select-none",
-      variantClasses[variant],
-      sizeClasses[size],
-      stretch && "w-full",
-      (disabled || isLoading) && "opacity-50 cursor-not-allowed",
-      isPressed && !disabled && !isLoading && "scale-95",
-      "active:scale-95",
-      className,
-    ]
-      .filter(Boolean)
-      .join(" ");
-
     return (
-      <button
-        ref={ref}
-        type={type}
-        disabled={disabled || isLoading}
-        className={buttonClasses}
-        onMouseDown={() => setIsPressed(true)}
-        onMouseUp={() => setIsPressed(false)}
-        onMouseLeave={() => setIsPressed(false)}
-        {...props}
-      >
-        {isLoading ? (
-          <span className="inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-        ) : (
-          <span className="flex items-center justify-center gap-2">
-            {children}
-          </span>
-        )}
-      </button>
+      <>
+        <style>{`
+          @keyframes spin {
+            to {
+              transform: rotate(360deg);
+            }
+          }
+        `}</style>
+        <button
+          className={cn(
+            buttonVariants({ variant, size, className }),
+            stretch && "w-full"
+          )}
+          ref={ref}
+          type={type}
+          disabled={disabled || isLoading}
+          {...props}
+        >
+          {isLoading ? (
+            <span
+              className="inline-block h-4 w-4 border-2 border-current border-t-transparent rounded-full"
+              style={{ animation: "spin 0.6s linear infinite" }}
+            />
+          ) : (
+            children
+          )}
+        </button>
+      </>
     );
   }
 );
@@ -111,59 +109,37 @@ export const ThreeDButton = React.forwardRef<
 ThreeDButton.displayName = "ThreeDButton";
 
 // ThreeDButtonGroup Component
-interface ThreeDButtonGroupProps {
-  children: React.ReactNode;
-  className?: string;
-}
+export interface ThreeDButtonGroupProps
+  extends React.HTMLAttributes<HTMLDivElement> {}
 
-export const ThreeDButtonGroup: React.FC<ThreeDButtonGroupProps> = ({
-  children,
-  className = "",
-}) => {
+export const ThreeDButtonGroup = React.forwardRef<
+  HTMLDivElement,
+  ThreeDButtonGroupProps
+>(({ className, children, ...props }, ref) => {
   return (
     <div
-      className={`flex flex-row rounded-lg overflow-hidden border border-zinc-300 ${className}`}
+      ref={ref}
+      className={cn(
+        "flex flex-row overflow-hidden rounded-lg border border-neutral-300 w-fit divide-x divide-neutral-300",
+        "[&>button]:rounded-none [&>button]:border-none",
+        className
+      )}
+      {...props}
     >
-      {React.Children.map(children, (child, index) => {
-        if (React.isValidElement(child)) {
-          return (
-            <div
-              className={`flex-1 ${
-                index > 0 ? "border-l border-zinc-300" : ""
-              }`}
-            >
-              {React.cloneElement(child as React.ReactElement<any>, {
-                className: `rounded-none border-none ${
-                  (child.props as any).className || ""
-                }`,
-              })}
-            </div>
-          );
-        }
-        return child;
-      })}
+      {children}
     </div>
   );
-};
+});
 
-// Helper function to get button styles programmatically
-export const threeDButtonVariants = (config?: {
-  variant?: ThreeDButtonVariant;
-  size?: ThreeDButtonSize;
-}) => {
-  const variant = config?.variant || "default";
-  const size = config?.size || "default";
+ThreeDButtonGroup.displayName = "ThreeDButtonGroup";
 
-  return {
-    variant,
-    size,
-  };
-};
+// Helper function to get button class names programmatically
+export const threeDButtonVariants = buttonVariants;
 
 // Export types
-export type {
-  ThreeDButtonProps,
-  ThreeDButtonVariant,
-  ThreeDButtonSize,
-  ThreeDButtonGroupProps,
-};
+export type ThreeDButtonVariant = NonNullable<
+  VariantProps<typeof buttonVariants>["variant"]
+>;
+export type ThreeDButtonSize = NonNullable<
+  VariantProps<typeof buttonVariants>["size"]
+>;
