@@ -24,25 +24,21 @@ pnpm add @spextion/components
 
 ### For React / Next.js
 
-Make sure you have Tailwind CSS installed and configured:
+Make sure you have Tailwind CSS installed in your project:
 
 ```bash
 npm install -D tailwindcss
-npx tailwindcss init
 ```
 
-Update your `tailwind.config.js`:
+Configure your `tailwind.config.js` to include the component library:
 
 ```js
 module.exports = {
   content: [
     './src/**/*.{js,ts,jsx,tsx}',
-    './node_modules/@spextion/components/**/*.{js,mjs}', // Add this line
+    './node_modules/@spextion/components/dist/**/*.{js,mjs}',
   ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
+  // ... rest of your config
 }
 ```
 
@@ -70,7 +66,7 @@ function App() {
 }
 ```
 
-**Note:** The component uses Tailwind CSS classes. Make sure Tailwind is configured in your project.
+No CSS import needed! Just make sure Tailwind is configured properly.
 
 ### React Native / Expo
 
