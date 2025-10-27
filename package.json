@@ -17,8 +17,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
-    },
-    "./styles.css": "./dist/3DButton.css"
+    }
   },
   "files": [
     "dist",
@@ -26,8 +25,7 @@
   ],
   "react-native": "./src/index.ts",
   "scripts": {
-    "build": "tsup src/index.web.ts src/index.ts --format cjs,esm --dts && npm run copy-css",
-    "copy-css": "node -e \"require('fs').copyFileSync('src/components/3DButton.css', 'dist/3DButton.css')\"",
+    "build": "tsup src/index.web.ts src/index.ts --format cjs,esm --dts",
     "dev": "tsup src/index.web.ts src/index.ts --format cjs,esm --dts --watch",
     "prepublishOnly": "npm run build"
   },

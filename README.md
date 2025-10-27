@@ -24,11 +24,26 @@ pnpm add @spextion/components
 
 ### For React / Next.js
 
-Import the CSS file in your app:
+Make sure you have Tailwind CSS installed and configured:
 
-```tsx
-// In your _app.tsx (Next.js) or main App component (React)
-import '@spextion/components/styles.css';
+```bash
+npm install -D tailwindcss
+npx tailwindcss init
+```
+
+Update your `tailwind.config.js`:
+
+```js
+module.exports = {
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/@spextion/components/**/*.{js,mjs}', // Add this line
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
 ```
 
 ### For React Native / Expo
@@ -45,7 +60,6 @@ npm install react-native-reanimated @expo/vector-icons
 
 ```tsx
 import { ThreeDButton } from '@spextion/components';
-import '@spextion/components/styles.css';
 
 function App() {
   return (
@@ -55,6 +69,8 @@ function App() {
   );
 }
 ```
+
+**Note:** The component uses Tailwind CSS classes. Make sure Tailwind is configured in your project.
 
 ### React Native / Expo
 
