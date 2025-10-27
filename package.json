@@ -1,6 +1,6 @@
 {
   "name": "@spextion/components",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A collection of beautiful buttons, cards, sections etc for React, React Native, Expo, and Next.js with TypeScript support",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
